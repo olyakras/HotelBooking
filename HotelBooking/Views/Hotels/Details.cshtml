@@ -1,0 +1,117 @@
+﻿@model HotelBooking.Models.Hotel
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Hotel</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.City)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.City)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Address)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Address)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Rating)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Rating)
+        </dd>
+
+    </dl>
+</div>
+
+<table class="table">
+    <tr>
+        <th>
+            Цена
+        </th>
+        <th>
+            Тип номера
+        </th>
+        <th>
+            Уровень комфорта
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model.Rooms)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Price)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Category)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ComfortType)
+            </td>
+            <td>
+                @Html.ActionLink("Бронирование", "Book", new { room = item, place = Model })
+            </td>
+        </tr>
+    }
+
+</table>
+
+<p>
+    @Html.ActionLink("Написать отзыв", "Create", "Review", new { place = Model })
+</p>
+<table class="table">
+    <tr>
+        <th>Автор</th>
+        <th>Рейтинг</th>
+        <th>Дата</th>
+        <th>Отзыв</th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model.Reviews)
+    {
+        <tr>
+            <td>
+                @item.Client.Email
+            </td>
+            <td>
+                @item.Rating
+            </td>
+            <td>
+                @item.Date
+            </td>
+            <td>
+                @item.Comment
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", "Review", new { review = item }) |
+                @Html.ActionLink("Delete", "Delete", "Review", new { review = item })
+            </td>
+        </tr>
+    }
+
+</table>

@@ -10,7 +10,7 @@ namespace HotelBooking.Controllers
     {
         public ActionResult Index()
         {
-            return View();
+            return Redirect("/CurrentOrders/Create");
         }
 
         public ActionResult About()

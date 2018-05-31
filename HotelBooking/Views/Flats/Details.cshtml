@@ -1,0 +1,118 @@
+﻿@model HotelBooking.Models.Flat
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Квартира</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Address)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.City + ", " + Model.Address)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Rating)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Rating)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Price)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Price)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Rooms)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Rooms)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Beds)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Beds)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TypeOfRenovation)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TypeOfRenovation)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Square)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Square)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Бронировать", "Book", new { place = Model }) |
+    @Html.ActionLink("Вернуться к списку", "Index")
+</p>
+<p>
+    @Html.ActionLink("Написать отзыв", "Create", "Review", new { place = Model })
+</p>
+<table class="table">
+    <tr>
+        <th>Автор</th>
+        <th>Рейтинг</th>
+        <th>Дата</th>
+        <th>Отзыв</th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model.Reviews)
+    {
+        <tr>
+            <td>
+                @item.Client.Email
+            </td>
+            <td>
+                @item.Rating
+            </td>
+            <td>
+                @item.Date
+            </td>
+            <td>
+                @item.Comment
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", "Review", new { review = item }) |
+                @Html.ActionLink("Delete", "Delete", "Review", new { review = item })
+            </td>
+        </tr>
+    }
+
+</table>
