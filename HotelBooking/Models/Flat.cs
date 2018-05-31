@@ -20,6 +20,7 @@ namespace HotelBooking.Models
         public string TypeOfRenovation { get; set; }
         [Display(Name = "Площадь")]
         public double Square { get; set; }
+        public List<Review> Reviews { get; set; }
 
     }
 }

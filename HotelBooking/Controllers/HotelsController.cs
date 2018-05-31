@@ -18,7 +18,7 @@ namespace HotelBooking.Controllers
         public ActionResult Book(Room room, Place place)
         {
             var curOrder = db.CurrentOrders.First() as CurrentOrder;
-            Order order = new Order { Place = place, OrderDate = DateTime.Now, FirstDay = curOrder.FirstDay, LastDay = curOrder.LastDay, Room = room };
+            Order order = new Order { PlaceId = place.PlaceId, OrderDate = DateTime.Now, FirstDay = curOrder.FirstDay, LastDay = curOrder.LastDay, RoomId = room.RoomId };
             db.Orders.Add(order);
             db.CurrentOrders.Remove(curOrder);
             db.SaveChanges();
@@ -33,7 +33,13 @@ namespace HotelBooking.Controllers
             {
                 return HttpNotFound();
             }
-            return View("Details", hotel);
+            hotel.Reviews = db.Reviews.Where(r => r.PlaceId == hotel.PlaceId).ToList();
+            hotel.Rooms = db.Rooms.Where(r => r.PlaceId == hotel.PlaceId).ToList();
+            foreach (var item in hotel.Reviews)
+            {
+                item.Client = db.Clients.Where(c => c.ClientId == item.ClientId).First();
+            }
+            return View(hotel);
         }
 
         // GET: Hotels/Create

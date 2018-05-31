@@ -21,6 +21,5 @@ namespace HotelBooking.Models
         public string Address { get; set; }
         [Display(Name = "Рейтинг")]
         public double Rating { get; set; }
-        public List<Review> Reviews { get; set; }
     }
 }

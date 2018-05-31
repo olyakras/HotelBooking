@@ -45,7 +45,7 @@
 
     </dl>
 </div>
-
+<p>@Html.ActionLink("Вернуться к списку", "Index")</p>
 <table class="table">
     <tr>
         <th>
@@ -80,16 +80,12 @@
 
 </table>
 
-<p>
-    @Html.ActionLink("Написать отзыв", "Create", "Review", new { place = Model })
-</p>
 <table class="table">
     <tr>
         <th>Автор</th>
         <th>Рейтинг</th>
         <th>Дата</th>
         <th>Отзыв</th>
-        <th></th>
     </tr>
 
     @foreach (var item in Model.Reviews)
@@ -106,10 +102,6 @@
             </td>
             <td>
                 @item.Comment
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", "Review", new { review = item }) |
-                @Html.ActionLink("Delete", "Delete", "Review", new { review = item })
             </td>
         </tr>
     }

@@ -15,8 +15,8 @@ namespace HotelBooking.Models
         public DateTime FirstDay { get; set; }
         [Display(Name = "День отбытия")]
         public DateTime LastDay { get; set; }
-        public Place Place { get; set; }
-        public Room Room { get; set; }
+        public int PlaceId { get; set; }
+        public int RoomId { get; set; }
         //public int PlaceId { get; set; }
         //public int RoomId { get; set; }
     }

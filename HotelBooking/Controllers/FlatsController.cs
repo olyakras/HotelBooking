@@ -32,6 +32,11 @@ namespace HotelBooking.Controllers
             {
                 return HttpNotFound();
             }
+            flat.Reviews = db.Reviews.Where(r => r.PlaceId == flat.PlaceId).ToList();
+            foreach (var item in flat.Reviews)
+            {
+                item.Client = db.Clients.Where(c=> c.ClientId==item.ClientId).First();
+            }
             return View(flat);
         }
 
@@ -42,7 +47,7 @@ namespace HotelBooking.Controllers
                 return HttpNotFound();
             }
             var curOrder = db.CurrentOrders.First() as CurrentOrder;
-            Order order = new Order { Place = flat, OrderDate = DateTime.Now, FirstDay = curOrder.FirstDay, LastDay = curOrder.LastDay, RoomId = -1 };
+            Order order = new Order { PlaceId = flat.PlaceId, OrderDate = DateTime.Now, FirstDay = curOrder.FirstDay, LastDay = curOrder.LastDay, RoomId = -1 };
             db.Orders.Add(order);
             var activeOrder = order as ActiveBook;
             db.ActiveBooks.Add(activeOrder);

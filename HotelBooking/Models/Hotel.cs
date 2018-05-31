@@ -12,6 +12,6 @@ namespace HotelBooking.Models
     {
         public int Stars { get; set; }
         public List<Room> Rooms { get; set; }
-
+        public List<Review> Reviews { get; set; }
     }
 }

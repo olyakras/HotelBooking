@@ -31,6 +31,11 @@ namespace HotelBooking.Controllers
         {
             if (ModelState.IsValid)
             {
+                if (db.CurrentOrders != null)
+                {
+                    db.CurrentOrders.Remove(db.CurrentOrders.First());
+                    db.SaveChanges();
+                }
                 db.CurrentOrders.Add(currentOrder);
                 db.SaveChanges();
                 return RedirectToAction("Index", "Places");

@@ -19,6 +19,8 @@ namespace HotelBooking.Models
         public string Category { get; set; }
         [Display(Name = "Уровень комфорта")]
         public string ComfortType { get; set; }
+        public int PlaceId { get; set; }
+        //public Hotel Hotel { get; set; }
 
     }
 }

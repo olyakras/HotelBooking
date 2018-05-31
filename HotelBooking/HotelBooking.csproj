@@ -159,16 +159,14 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\ActiveBooksController.cs" />
     <Compile Include="Controllers\CurrentOrdersController.cs" />
     <Compile Include="Controllers\FlatsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Models\ActiveBook.cs" />
     <Compile Include="Models\HotelDbInitializer.cs" />
     <Compile Include="Controllers\HotelsController.cs" />
-    <Compile Include="Controllers\OrdersController.cs" />
     <Compile Include="Controllers\PlacesController.cs" />
-    <Compile Include="Controllers\ReviewsController.cs" />
-    <Compile Include="Controllers\RoomsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -273,15 +271,8 @@
     <Content Include="Views\Reviews\Delete.cshtml" />
     <Content Include="Views\Reviews\Edit.cshtml" />
     <Content Include="Views\CurrentOrders\Create.cshtml" />
-    <Content Include="Views\CurrentOrders\Delete.cshtml" />
-    <Content Include="Views\CurrentOrders\Details.cshtml" />
-    <Content Include="Views\CurrentOrders\Edit.cshtml" />
-    <Content Include="Views\CurrentOrders\Index.cshtml" />
-    <Content Include="Views\Orders\Create.cshtml" />
-    <Content Include="Views\Orders\Delete.cshtml" />
-    <Content Include="Views\Orders\Details.cshtml" />
-    <Content Include="Views\Orders\Edit.cshtml" />
-    <Content Include="Views\Orders\Index.cshtml" />
+    <Content Include="Views\ActiveBooks\Delete.cshtml" />
+    <Content Include="Views\ActiveBooks\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

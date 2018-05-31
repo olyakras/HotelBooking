@@ -13,13 +13,13 @@ namespace HotelBooking.Controllers
     public class PlacesController : Controller
     {
         private HotelContext db = new HotelContext();
-
+        private List<Place> chosenPlaces;
         // GET: Places
         public ActionResult Index()
         {
             var currentOrder = db.CurrentOrders.First();
             var places = db.Places.Where(p => p.City.ToUpper()==currentOrder.City.ToUpper()).ToList();
-            var orders = db.Orders.Where(p => p.FirstDay >= currentOrder.FirstDay && p.LastDay <= currentOrder.LastDay).ToList();
+            var orders = db.Orders.Where(p => p.FirstDay <= currentOrder.FirstDay && p.LastDay >= currentOrder.LastDay).ToList();
             if (places != null)
                 if (orders != null)
                 {
@@ -27,34 +27,52 @@ namespace HotelBooking.Controllers
                     {
                         foreach (var order in orders)
                         {
-                            if (place.PlaceId == order.Place.PlaceId)
+                            if (place.PlaceId == order.PlaceId)
                             {
                                 var hotels = db.Hotels.Where(h => h.City.ToUpper() == currentOrder.City.ToUpper()).ToList();
                                 var hotelPlace = place as Hotel;
                                 if (hotels.Contains(hotelPlace))
                                 {
                                     hotelPlace = hotels.Find(h => h.PlaceId == place.PlaceId);
-                                    foreach (var room in hotelPlace.Rooms)
+                                    var rooms = db.Rooms.Where(r => r.PlaceId == hotelPlace.PlaceId).ToList();
+                                    foreach (var room in rooms)
                                     {
-                                        if (room.RoomId==order.RoomId)
+                                        if (room.RoomId == order.RoomId)
                                         {
                                             room.Count--;
-                                            if (room.Count == 0) hotelPlace.Rooms.Remove(room);
+                                            if (room.Count == 0) rooms.Remove(room);
                                         }
                                     }
-                                    if (hotelPlace.Rooms == null)
+                                    if (rooms == null)
                                         places.Remove(place);
                                 }
                                 else
-                                places.Remove(place);
-                                break;
+                                {
+                                    places.Remove(place);
+                                    break;
+                                }
+                                    
                             }
                         }
                     }
+                    chosenPlaces = new List<Place>();
+                    chosenPlaces = places;
                     return View(places);
-                }
-                else return View(places);
-            else return HttpNotFound();
+                }                
+                else {
+                    chosenPlaces = new List<Place>();
+                    chosenPlaces = places;
+                    return View(places); }
+            else
+            {
+                ViewBag.Message("По таким параметрамничего не найдено, выберите дргуие");
+                return RedirectToAction("Create", "CurrentOrder");
+            }
+        }
+
+        public ActionResult GetIndex()
+        {
+            return View(chosenPlaces);
         }
 
         // GET: Places/Details/5
@@ -66,7 +84,7 @@ namespace HotelBooking.Controllers
                 return HttpNotFound();
             }
             if (db.Hotels.FirstOrDefault(h => h.PlaceId==id)==null)
-            { return RedirectToAction("Details", "Flats", new { Placeid=id }); }
+            { return RedirectToAction("Details", "Flats", new { Placeid = id }); }
             else
             { return RedirectToAction("Details", "Hotels", new { PlaceId = id }); }
         }
@@ -151,13 +169,13 @@ namespace HotelBooking.Controllers
         //    return RedirectToAction("Index");
         //}
 
-        //protected override void Dispose(bool disposing)
-        //{
-        //    if (disposing)
-        //    {
-        //        db.Dispose();
-        //    }
-        //    base.Dispose(disposing);
-        //}
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                db.Dispose();
+            }
+            base.Dispose(disposing);
+        }
     }
 }
